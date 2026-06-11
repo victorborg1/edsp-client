@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* VARIABLES */
+:root {
+  --bg: #0b0d10;
+  --panel: #12151b;
+  --card: #161a21;
+  --border: #262c36;
+  --border-soft: rgba(255, 255, 255, 0.04);
+  --text: #e6e8ee;
+  --text-muted: #afafaf;
+  --accent: #ffffff;
+  --footer-text: #6f7786;
+  --grid-glow: rgba(106, 166, 255, 0.08);
+  --grid-active: rgba(106, 166, 255, 0.22);
+}
+
+/* RESET */
+html,
+body,
+#root {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+  user-select: none;
+}
+
+/* BASE */
+body {
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-image: radial-gradient(
+      circle at 20% 10%,
+      rgba(106, 166, 255, 0.06),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 90%,
+      rgba(255, 255, 255, 0.03),
+      transparent 45%
+    );
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

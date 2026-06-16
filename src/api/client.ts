@@ -1,7 +1,7 @@
 import axios from "axios"
 
 export const api = axios.create({
-  baseURL: "http://localhost:5153/api",
+  baseURL: "https://eigendsp-api-cth7f6byfpe0hhep.westeurope-01.azurewebsites.net/api",
 })
 
 api.interceptors.request.use((config) => {

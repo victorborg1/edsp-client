@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react"
 
-const CELL = 42
+const CELL = 56
 
 export default function Grid() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -9,47 +9,68 @@ export default function Grid() {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const ctx = canvas.getContext("2d")!
+    const ctx = canvas.getContext("2d")
+    if (!ctx) return
 
-    // set initial size only
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
+    const draw = () => {
+      const dpr = window.devicePixelRatio || 1
+      const width = window.innerWidth
+      const height = window.innerHeight
 
-    const W = canvas.width
-    const H = canvas.height
-    const cx = W * 0.5
-    const cy = H * 0.5
+      canvas.width = width * dpr
+      canvas.height = height * dpr
+      canvas.style.width = `${width}px`
+      canvas.style.height = `${height}px`
 
-    const cols = Math.ceil(W / CELL)
-    const rows = Math.ceil(H / CELL)
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
 
-    ctx.fillStyle = "#07090d"
-    ctx.fillRect(0, 0, W, H)
+      ctx.fillStyle = "#D9D9E4"
+      ctx.fillRect(0, 0, width, height)
 
-    ctx.strokeStyle = "rgba(160, 180, 255, 0.03)"
-    ctx.lineWidth = 1
+      const cols = Math.ceil(width / CELL) + 1
+      const rows = Math.ceil(height / CELL) + 1
 
-    ctx.beginPath()
-    for (let c = 0; c <= cols; c++) {
-      const x = c * CELL
-      ctx.moveTo(x, 0)
-      ctx.lineTo(x, H)
+      ctx.strokeStyle = "rgba(41, 39, 49, 0.09)"
+      ctx.lineWidth = 1
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * CELL
+          const y = row * CELL
+
+          ctx.beginPath()
+          ctx.moveTo(x, y + CELL)
+          ctx.lineTo(x + CELL, y)
+          ctx.stroke()
+
+          ctx.beginPath()
+          ctx.moveTo(x, y)
+          ctx.lineTo(x + CELL, y + CELL)
+          ctx.stroke()
+        }
+      }
+
+      ctx.fillStyle = "rgba(41, 39, 49, 0.13)"
+
+      for (let row = 0; row < rows; row++) {
+        for (let col = 0; col < cols; col++) {
+          const x = col * CELL
+          const y = row * CELL
+
+          ctx.beginPath()
+          ctx.arc(x, y, 1.5, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      }
     }
-    ctx.stroke()
 
-    ctx.beginPath()
-    for (let r = 0; r <= rows; r++) {
-      const y = r * CELL
-      ctx.moveTo(0, y)
-      ctx.lineTo(W, y)
+    draw()
+
+    window.addEventListener("resize", draw)
+
+    return () => {
+      window.removeEventListener("resize", draw)
     }
-    ctx.stroke()
-
-    const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, W * 0.7)
-    glow.addColorStop(0, "rgba(120,160,255,0.03)")
-    glow.addColorStop(1, "rgba(0,0,0,0)")
-    ctx.fillStyle = glow
-    ctx.fillRect(0, 0, W, H)
   }, [])
 
   return (

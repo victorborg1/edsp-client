@@ -1,25 +1,31 @@
 import { useNavigate } from "react-router-dom"
 import Button from "../components/Button"
-import AuthCard from "../components/AuthCard"
 
 export default function Success() {
   const navigate = useNavigate()
 
   return (
-    <div className="auth-page">
-      <AuthCard>
-        <h2>Payment Successful</h2>
+    <div className="status-page">
+      <div className="status-panel success">
+        <div className="status-mark">✓</div>
 
-        <p style={{ marginTop: "10px", color: "#a3a3a3", fontSize: "14px" }}>
-          Your purchase was completed successfully.
-        </p>
+        <div className="status-content">
+          <span className="status-label">CHECKOUT</span>
+          <h2>Payment Successful</h2>
 
-        <p style={{ marginTop: "6px", color: "#a3a3a3", fontSize: "14px" }}>
-          You can now download your plugin from your library.
-        </p>
+          <p>
+            Your purchase was completed successfully.
+          </p>
 
-        <Button onClick={() => navigate("/library")}>Go to Library</Button>
-      </AuthCard>
+          <p>
+            Your plugin is now available in your library.
+          </p>
+
+          <Button onClick={() => navigate("/library")}>
+            Go to Library
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

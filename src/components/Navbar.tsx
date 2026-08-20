@@ -9,7 +9,9 @@ export default function Navbar() {
       <div className="nav-inner">
         <div className="nav-left">
           <Link className="brand" to="/">
-            <span className="logo-mark">~λ</span> EigenDSP
+            <span className="brand-prefix">/E</span>
+            <span className="brand-expand">igen</span>
+            <span className="brand-suffix">/D/S/P/</span>
           </Link>
 
           <Link to="/" className="nav-item">

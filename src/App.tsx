@@ -4,7 +4,6 @@ import Login from "./pages/Login"
 import Signup from "./pages/Signup"
 import Navbar from "./components/Navbar"
 import Footer from "./components/Footer"
-import Grid from "./components/Grid"
 import Profile from "./pages/Profile"
 import Success from "./pages/Success"
 import Cancel from "./pages/Cancel"
@@ -16,7 +15,7 @@ export default function App() {
       <Navbar />
 
       <main className="main" style={{ position: "relative" }}>
-        <Grid />
+        
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />

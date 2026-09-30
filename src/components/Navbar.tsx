@@ -1,63 +1,37 @@
 import { Link } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import YenBorder from "./YenBorder"
 
 export default function Navbar() {
   const { user, logout } = useAuth()
 
   return (
     <div className="nav">
+      <YenBorder side="bottom" count={200} />
       <div className="nav-inner">
-        <div className="nav-left">
-          <Link className="brand" to="/">
-            <span className="brand-prefix">/E</span>
-            <span className="brand-expand">igen</span>
-            <span className="brand-suffix">/D/S/P/</span>
-          </Link>
 
-          <Link to="/" className="nav-item">
-            Home
-          </Link>
-          <Link to="#" className="nav-item">
-            Blog
-          </Link>
-          <div className="nav-item dropdown">
-            <span>Products</span>
-            <div className="dropdown-menu">
-              <Link to="#">Eigen Compressor</Link>
-              <Link to="#">Eigen Saturator</Link>
-              <Link to="#">Eigen Reverb</Link>
-            </div>
-          </div>
-            <div className="nav-item dropdown">
-            <span>Freeware</span>
-            <div className="dropdown-menu">
-              <Link to="#">Eigen Compressor</Link>
-              <Link to="#">Eigen Saturator</Link>
-              <Link to="#">Eigen Reverb</Link>
-            </div>
-          </div>
-        </div>
-        
+        <Link to="/?filter=products" className="nav-item">/products</Link>
 
-        <div className="right">
-          {user ? (
-            <>
-              <div className="nav-item dropdown">
-                <span className="user">{user.email}</span>
-                <div className="dropdown-menu">
-                  <Link to="/profile">Profile</Link>
-                  <Link to="/library">Library</Link>
-                </div>
-              </div>
-              <button onClick={logout}>Sign-Out</button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">Sign-In</Link>
-              <Link to="/signup">Sign-Up</Link>
-            </>
-          )}
-        </div>
+        <Link to="/?filter=freeware" className="nav-item">/freeware</Link>
+
+        <Link className="brand" to="/">
+          <span className="brand-prefix">/eigen</span>
+          <span className="brand-expand">dsp</span>
+        </Link>
+
+      
+        {user ? (
+          <>
+            <Link to="/library" className="nav-item">Library</Link>
+            <Link to="/profile" className="nav-item">Profile</Link>
+            <button onClick={logout} className="nav-item">/signout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/login" className="nav-item">/signin</Link>
+            <Link to="/signup" className="nav-item">/signup</Link>
+          </>
+        )}
       </div>
     </div>
   )

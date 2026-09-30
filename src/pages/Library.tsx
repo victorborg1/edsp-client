@@ -16,11 +16,9 @@ export default function Library() {
           getProducts(),
           getMyProductIds(),
         ])
-
         const ownedProducts = allProducts.filter((p: any) =>
           owned.includes(p.id)
         )
-
         setProducts(ownedProducts)
       } catch (err) {
         console.error("Library load error:", err)
@@ -28,7 +26,6 @@ export default function Library() {
         setLoading(false)
       }
     }
-
     load()
   }, [])
 
@@ -78,14 +75,16 @@ export default function Library() {
 
       <div className="library-list">
         {products.map((p) => (
-          <div className="library-item" key={p.id}>
+          <div className="library-item retro-top" key={p.id}>
             <div className="library-info">
               <h3>{p.name}</h3>
               <p>{p.description ?? "No description available."}</p>
             </div>
-
             <div className="library-actions">
-              <button onClick={() => handleDownload(p.id, p.name)}>
+              <button
+                className="button"
+                onClick={() => handleDownload(p.id, p.name)}
+              >
                 Download
               </button>
             </div>

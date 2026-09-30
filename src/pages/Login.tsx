@@ -4,6 +4,7 @@ import { api } from "../api/client"
 import Input from "../components/Input"
 import Button from "../components/Button"
 import AuthCard from "../components/AuthCard"
+import YenBorder from "../components/YenBorder"
 import { useAuth } from "../context/AuthContext"
 
 export default function Login() {
@@ -15,11 +16,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await api.post("/auth/login", {
-        email,
-        password,
-      })
-
+      const res = await api.post("/auth/login", { email, password })
       login(res.data.token)
       navigate("/")
     } catch (err) {
@@ -29,44 +26,38 @@ export default function Login() {
   }
 
   return (
-  <div className="auth-page">
-    <div className="auth-intro">
-      <div className="auth-intro-inner">
-        <span className="auth-eyebrow">EIGENDSP</span>
-        <h1>Shape<br />your sound.</h1>
-        <p>
-          Experimental audio tools designed for
-          precise and creative sound shaping.
-        </p>
-        <span className="auth-mark">/E/D/S/P/</span>
-      </div>
-    </div>
+    <div className="auth-page">
+      {/* LEFT: empty intro */}
+      <div className="auth-intro" />
 
-    <div className="auth-form-side">
-      <div className="auth-form">
-        <div className="auth-header">
-          <span>Welcome back</span>
-          <h2>Sign-In</h2>
+      {/* MIDDLE: vertical ¥ border */}
+      <div className="auth-divider">
+        <YenBorder side="vertical" count={69} fallChance={0.02} />
+      </div>
+
+      {/* RIGHT: form */}
+      <div className="auth-form-side">
+        <div className="auth-form">
+          <div className="auth-header">
+            <h2>Sign-In</h2>
+          </div>
+
+          <AuthCard>
+            <Input
+              placeholder=">email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              placeholder=">password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Button onClick={handleLogin}>Sign In</Button>
+          </AuthCard>
         </div>
-
-        <AuthCard>
-          <Input
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-
-          <Input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          <Button onClick={handleLogin}>Sign in</Button>
-        </AuthCard>
       </div>
     </div>
-  </div>
   )
 }
